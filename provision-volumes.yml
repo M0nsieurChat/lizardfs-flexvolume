@@ -1,0 +1,74 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mfs-volume
+  labels:
+    type: shared
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  flexVolume:
+    driver: "lowet84/lizardfs"
+    options:
+      host: "mfsmaster"
+      port: "9421" 
+  persistentVolumeReclaimPolicy: Retain
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mfs-volume-1
+  labels:
+    type: shared
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  flexVolume:
+    driver: "lowet84/lizardfs"
+    options:
+      host: "mfsmaster"
+      port: "9421"
+  persistentVolumeReclaimPolicy: Retain
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mfs-volume-2
+  labels:
+    type: shared
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  flexVolume:
+    driver: "lowet84/lizardfs"
+    options:
+      host: "mfsmaster"
+      port: "9421"
+  persistentVolumeReclaimPolicy: Retain
+
+
+
+
+
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: test-1
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+     requests:
+       storage: 1Gi
+  selector: 
+    matchLabels:
+      type: shared

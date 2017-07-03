@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: eurovet-testlizardfs
+spec:
+  replicas: 1
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        role: busybox
+        storage: shared
+	other: label
+    spec:
+      containers:
+      - name: genericpod
+        image: busybox
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: lizardfs
+          mountPath: /web
+        resources:
+          requests:
+            cpu: 200m
+            memory: 128Mi
+          limits:
+            cpu: 800m
+            memory: 256Mi
+      volumes:
+      - name: lizardfs
+        persistentVolumeClaim:
+          claimName: test-1
+
