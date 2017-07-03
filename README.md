@@ -13,7 +13,27 @@ chmod +x /usr/libexec/kubernetes/kubelet-plugins/volume/exec/lowet84~lizardfs/li
 
 Then proceed to restart the Kubelet service
 
-Obviously you'd need to have a functional running LizardFS cluster reachable on <mfsmaster>:<port>.
+Obviously you'd need to have a functional running LizardFS cluster reachable.
+
+If you'd want to use the provided YML example files in order to test the feature :
+```bash
+kubectl create -f examples/provision-volumes.yml
+```
+
+Three PersistentVolumes should be created plus one PVC, bound to one of your PVs (could be any of those 3) :
+```bash
+kubectl get pv
+NAME           CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS      CLAIM                                   STORAGECLASS   REASON    AGE
+mfs-volume     100Gi      RWX           Retain          Bound       default/test-1                                                   3h
+mfs-volume-1   100Gi      RWX           Retain          Available                                                                    3h
+mfs-volume-2   100Gi      RWX           Retain          Available                                                                    3h
+```
+
+Then proceed with a basic POD creation using this PVC __test-1__ :
+
+```bash 
+kubectl create -f examples/deployment-using-lizardfs.yml
+```
 
 ## Kubernetes 1.6.X specific instructions
 Beware, if you're running the 1.6.X branch of Kubernetes, FlexVolume drivers without an implementation of attach/detach/waitforattach (like this one, or any other driver using a networked file system) will fail
@@ -29,3 +49,10 @@ Please follow last advice only if not running any other driver (out-of-tree or K
   
   
 # TO DO :
+
+````bash
+        # Okay, I want to provision the folder in the root of my LizardFS : each pod bound to a PVC bound to a PV has a folder created (folder name is the PV name bound to the PVC)
+        # Obvisouly you need to have a fuse mountpoint on /mnt pointing to the root of your LizardFS.
+        # TO DO : Automated quickmount -> mkdir -> unmount so all the logic is embedded in the flexvolume driver.
+        mkdir -p /mnt/$LFSFOLDER
+```
