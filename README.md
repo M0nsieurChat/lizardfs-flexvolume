@@ -15,7 +15,7 @@ chmod +x /usr/libexec/kubernetes/kubelet-plugins/volume/exec/lowet84~lizardfs/li
 
 Then proceed to restart the Kubelet service
 
-Obviously you'd need to have a functional running LizardFS cluster reachable.
+Obviously you'd need to have a functional running LizardFS cluster reachable by the Kubernetes minions.
 
 If you'd want to use the provided YML example files in order to test the feature :
 ```bash
