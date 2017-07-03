@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: eurovet-testlizardfs
+  name: testlizardfs
 spec:
   replicas: 1
   template: # create pods using pod definition in this template
@@ -9,7 +9,7 @@ spec:
       labels:
         role: busybox
         storage: shared
-	other: label
+        other: label
     spec:
       containers:
       - name: genericpod
