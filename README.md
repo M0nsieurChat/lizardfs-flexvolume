@@ -63,3 +63,6 @@ This FlexVolume driver tries to make a new directory in the root of your lizardf
 The goal of that behavior is to keep a folder structure matching the PersistentVolume names that were bound to the PersistentVolumeClaim.
 
 
+# CREDITS
+
+https://github.com/lowet84 for the first implementation as seen on https://github.com/lizardfs/lizardfs/issues/486
