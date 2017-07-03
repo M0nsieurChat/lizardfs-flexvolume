@@ -2,6 +2,8 @@
 
 This Kubernetes FlexVolume driver aims to provide an implementation for provisioning LizardFS volumes to a Kubernetes POD resource.
 
+You shouldn't use this driver in production.
+
 # Installation
 
 FlexVolumes drivers are pretty straightforward to install :
@@ -50,9 +52,14 @@ Please follow last advice only if not running any other driver (out-of-tree or K
   
 # TO DO :
 
-````bash
+```bash
         # Okay, I want to provision the folder in the root of my LizardFS : each pod bound to a PVC bound to a PV has a folder created (folder name is the PV name bound to the PVC)
         # Obvisouly you need to have a fuse mountpoint on /mnt pointing to the root of your LizardFS.
         # TO DO : Automated quickmount -> mkdir -> unmount so all the logic is embedded in the flexvolume driver.
         mkdir -p /mnt/$LFSFOLDER
 ```
+
+This FlexVolume driver tries to make a new directory in the root of your lizardfs, prealably mounted in /mnt. 
+The goal of that behavior is to keep a folder structure matching the PersistentVolume names that were bound to the PersistentVolumeClaim.
+
+
