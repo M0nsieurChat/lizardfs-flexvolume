@@ -17,6 +17,14 @@ Then proceed to restart the Kubelet service
 
 Obviously you'd need to have a functional running LizardFS cluster reachable by the Kubernetes minions.
 
+This drivers uses the jq binary on your minions in order to parse JSON options sent by the controller. 
+Ensure jq is installed on your minion's system
+https://github.com/coreos/bugs/issues/1706 
+
+```bash
+apt-get install -y jq
+```
+
 If you'd want to use the provided YML example files in order to test the feature :
 ```bash
 kubectl create -f examples/provision-volumes.yml
